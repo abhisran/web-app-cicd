@@ -3,6 +3,7 @@ pipeline {
     environment {
         APPLICATION_NAME = 'demo-web-app'
         DEPLOYMENT_GROUP = 'demo-web-app-group'
+        AWS_REGION = 'us-east-1'
     }
     stages {
         stage('Clone Repository') {
@@ -17,7 +18,8 @@ pipeline {
                         aws deploy create-deployment \
                             --application-name $APPLICATION_NAME \
                             --deployment-group-name $DEPLOYMENT_GROUP \
-                            --github-location repository=https://github.com/abhisran/web-app-cicd.git,commitId=$(git rev-parse HEAD)
+                            --github-location repository=https://github.com/abhisran/web-app-cicd.git,commitId=$(git rev-parse HEAD) \
+                            --region $AWS_REGION
                     '''
                 }
             }

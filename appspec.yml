@@ -1,14 +1,10 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /var/www/html
+  - source: /content
+    destination: /tmp/web-app
 hooks:
   AfterInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 300
-      runas: root
-  ApplicationStart:
-    - location: scripts/start_server.sh
+    - location: scripts/copy_to_nginx.sh
       timeout: 300
       runas: root

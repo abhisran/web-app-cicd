@@ -7,17 +7,17 @@ if ! [ -x "$(command -v nginx)" ]; then
 fi
 
 # Ensure NGINX directory exists
-if [ ! -d "/var/www/html" ]; then
+if [ ! -d "/usr/share/nginx/html" ]; then
   echo "Creating NGINX web root directory."
-  sudo mkdir -p /var/www/html
+  sudo mkdir -p /usr/share/nginx/html
 fi
 
 # Copy the web files to NGINX default directory
 echo "Copying web files to NGINX web root."
-sudo cp -r /tmp/web-app/* /var/www/html/
+sudo cp -r /tmp/web-app/* /usr/share/nginx/html/
 
 # Set proper permissions
-sudo chmod -R 755 /var/www/html
+sudo chmod -R 755 /usr/share/nginx/html
 
 # Start or restart NGINX
 sudo systemctl restart nginx

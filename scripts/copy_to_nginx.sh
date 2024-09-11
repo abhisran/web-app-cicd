@@ -1,19 +1,25 @@
 #!/bin/bash
 
-# Ensure NGINX is installed
+# Ensure NGINX is installed via Amazon Linux Extras
 if ! [ -x "$(command -v nginx)" ]; then
   echo "NGINX is not installed. Installing NGINX."
-  yum install -y nginx
+  sudo amazon-linux-extras install nginx1 -y
+fi
+
+# Ensure NGINX directory exists
+if [ ! -d "/var/www/html" ]; then
+  echo "Creating NGINX web root directory."
+  sudo mkdir -p /var/www/html
 fi
 
 # Copy the web files to NGINX default directory
 echo "Copying web files to NGINX web root."
-cp -r /tmp/web-app/* /var/www/html/
+sudo cp -r /tmp/web-app/* /var/www/html/
 
 # Set proper permissions
-chmod -R 755 /var/www/html
+sudo chmod -R 755 /var/www/html
 
 # Start or restart NGINX
-systemctl restart nginx
+sudo systemctl restart nginx
 
 echo "Deployment successful!"
